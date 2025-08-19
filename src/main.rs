@@ -1,4 +1,6 @@
 use clap::{ Parser, Subcommand };
+use list::list;
+mod list;
 
 /// TODO: Write documentation
 #[derive(Parser)]
@@ -12,7 +14,7 @@ struct Cli {
 enum Commands {
     /// List the workflows in the given directory
     List {
-        #[arg(short, long, default_value_t = String::from("."))]
+        #[arg(default_value_t = String::from("."))]
         path: String,
     }
 }
@@ -21,7 +23,7 @@ fn main() {
     let cli = Cli::parse();
     match &cli.command {
         Some(Commands::List { path }) => {
-            println!("Running list on path: {}", path)
+            list(path);
         },
         None => {}
     }
